@@ -1,0 +1,27 @@
+package dev.buddly.home_finder.repo;
+
+import dev.buddly.home_finder.entity.Listing;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+
+public interface ListingRepository extends JpaRepository<Listing,Integer> {
+
+    Page<Listing> findAllByUserId(Integer userId, Pageable pageable);
+
+    @Query("""
+        SELECT i
+        FROM Listing i
+        LEFT JOIN FETCH Apartment a ON i.id = a.id
+        LEFT JOIN FETCH DetachedHouse d ON i.id = d.id
+        LEFT JOIN FETCH Land l ON i.id = l.id
+        WHERE i.id = :id
+    """)
+    Listing findListingDetails(Integer id);
+
+    @Query("SELECT l FROM Listing l ORDER BY FUNCTION('RANDOM')") // veya RANDOM()
+    Page<Listing> findRandomListings(Pageable pageable);
+}
