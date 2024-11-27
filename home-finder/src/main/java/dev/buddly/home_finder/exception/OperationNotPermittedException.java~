@@ -1,2 +1,0 @@
-package dev.buddly.home_finder.exception;public class OperationNotPermittedException {
-}

@@ -1,7 +1,0 @@
-package dev.buddly.home_finder.repo;
-
-import dev.buddly.home_finder.entity.Token;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface TokenRepository extends JpaRepository<Token,Integer> {
-}

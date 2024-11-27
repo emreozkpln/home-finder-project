@@ -1,6 +1,0 @@
-package dev.buddly.home_finder.dto;
-
-public record AuthenticationResponse(
-        String token
-) {
-}
