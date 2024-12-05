@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,13 +32,21 @@ public class ListingController {
     private final ListingDocumentService documentService;
 
     @GetMapping("/compare")
-    public void compare(){
+    public ResponseEntity<Object> compare(){
         documentService.indexData();
+        return ResponseHandler.handle("Done",HttpStatus.OK,null);
     }
 
     @GetMapping("/three-listing")
     public ResponseEntity<List<ListingResponse>> findThreeListing(){
         return ResponseEntity.ok(service.findThreeListing());
+    }
+
+    @GetMapping("/three-listing/{propertyType}")
+    public ResponseEntity<List<ListingResponse>> findThreeListingByPropertyType(
+            @PathVariable String propertyType
+    ){
+        return ResponseEntity.ok(service.findThreeListingByPropertyType(propertyType));
     }
 
     @GetMapping("/index/{index}")
@@ -47,9 +56,9 @@ public class ListingController {
         return ResponseEntity.ok(documentService.getAllDataFromIndex(index));
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<List<ListingDocument>> searchListingsByFieldsAndValues(
-            @RequestBody MultipleSearchRequest request
+            @RequestParam Map<String, String> request
     ){
         return ResponseEntity.ok(documentService.searchListingsByFieldsAndValues(request));
     }

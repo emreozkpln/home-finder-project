@@ -1,7 +1,6 @@
-import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
-import HomeImg from "/home.png";
 
 const HomePageBody = () => {
 	return (
@@ -14,7 +13,9 @@ const HomePageBody = () => {
 				<div className="text-[#87898E]">
 					Want to find a home? We are ready to help you find <br /> one that suits your lifestyle and needs
 				</div>
-				<button className="px-5 py-3 text-white bg-black w-40 text-sm rounded-lg font-medium">Get Started</button>
+				<Link href="/blog">
+					<button className="px-5 py-3 text-white bg-black w-40 text-sm rounded-lg font-medium">Get Started</button>
+				</Link>
 				<div className="flex gap-9">
 					<div className="flex flex-col gap-1">
 						<div className="flex items-center gap-0.5 text-xl">

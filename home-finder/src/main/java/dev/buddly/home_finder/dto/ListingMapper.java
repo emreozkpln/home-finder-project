@@ -26,6 +26,7 @@ public class ListingMapper {
                 description(listing.getDescription()).
                 propertyType(listing.getPropertyType()).
                 user(listing.getUser().fullName()).
+                userEmail(listing.getUser().getEmail()).
                 createdDate(listing.getCreatedDate()).
                 lastModifiedDate(listing.getLastModifiedDate()).
                 createdBy(listing.getCreatedBy()).
@@ -45,6 +46,7 @@ public class ListingMapper {
                 .description(listing.getDescription())
                 .propertyType(listing.getPropertyType())
                 .user(listing.getUser().fullName())
+                .userEmail(listing.getUser().getEmail())
                 .createdDate(listing.getCreatedDate())
                 .lastModifiedDate(listing.getLastModifiedDate())
                 .createdBy(listing.getCreatedBy())

@@ -49,6 +49,7 @@ public class SecurityConfig {
                                 "/listing",
                                 "/listing/id/{listingId}",
                                 "/listing/three-listing",
+                                        "/listing/three-listing/{propertyType}",
                                 "/listing/index/**",
                                 "/listing/search",
                                 "/listing/compare"

@@ -22,6 +22,9 @@ public interface ListingRepository extends JpaRepository<Listing,Integer> {
     """)
     Listing findListingDetails(Integer id);
 
+    @Query("SELECT l FROM Listing l  WHERE l.propertyType= :propertyType ORDER BY FUNCTION('RANDOM') ")
+    Page<Listing> findThreeListingByPropertyType(String propertyType, Pageable pageable);
+
     @Query("SELECT l FROM Listing l ORDER BY FUNCTION('RANDOM')") // veya RANDOM()
     Page<Listing> findRandomListings(Pageable pageable);
 }

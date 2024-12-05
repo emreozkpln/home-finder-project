@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +38,7 @@ public class ListingDocumentService {
         return extractAllResponse(response);
     }
 
-    public List<ListingDocument> searchListingsByFieldsAndValues(MultipleSearchRequest request){
+    public List<ListingDocument> searchListingsByFieldsAndValues(Map<String, String> request){
         var query = EsUtil.buildMultipleMatchQuery(request);
         SearchResponse<ListingDocument> response = null;
         try{

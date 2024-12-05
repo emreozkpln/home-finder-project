@@ -3,6 +3,7 @@ package dev.buddly.home_finder.elasticsearch;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
 import lombok.experimental.UtilityClass;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 @UtilityClass
@@ -12,9 +13,9 @@ public class EsUtil {
         return Query.of(q->q.matchAll(new MatchAllQuery.Builder().build()));
     }
 
-    public static Supplier<Query> buildMultipleMatchQuery(MultipleSearchRequest request) {
+    public static Supplier<Query> buildMultipleMatchQuery(Map<String, String> request) {
         BoolQuery.Builder boolQueryBuilder = new BoolQuery.Builder();
-        request.fieldValues().forEach((field, value) -> {
+        request.forEach((field, value) -> {
             MatchQuery matchQuery = QueryBuilders.match()
                     .field(field)
                     .query(value)

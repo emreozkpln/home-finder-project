@@ -46,6 +46,14 @@ public class ListingService {
                 .toList();
     }
 
+    public List<ListingResponse> findThreeListingByPropertyType(String propertyType){
+        Page<Listing> randomListings = listingRepository.findThreeListingByPropertyType(propertyType,PageRequest.of(0, 3));
+        List<Listing> result = randomListings.getContent();
+        return result.stream()
+                .map(listingMapper::toResponse)
+                .toList();
+    }
+
     public PageResponse<ListingResponse> findAllListing(int page, int size) {
         Pageable pageable = PageRequest.of(page,size, Sort.by("createdDate").descending());
         Page<Listing> listings = listingRepository.findAll(pageable);

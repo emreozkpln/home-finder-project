@@ -20,6 +20,7 @@ public class ListingResponse {
     private String description;
     private String propertyType;
     private String user;
+    private String userEmail;
     private LocalDateTime createdDate;
     private LocalDateTime lastModifiedDate;
     private Integer createdBy;

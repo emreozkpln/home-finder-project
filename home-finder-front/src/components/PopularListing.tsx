@@ -5,6 +5,7 @@ import { ImQuotesLeft } from "react-icons/im";
 import { FaTurkishLiraSign } from "react-icons/fa6";
 import getThreeListing from "@/services/listingService";
 import { formatDate } from "@/util/formatDate";
+import Link from "next/link";
 
 const PopularListing = async () => {
 	const data = await getThreeListing();
@@ -18,10 +19,10 @@ const PopularListing = async () => {
 				</div>
 				<div className="flex justify-between items-center">
 					<div className="text-[#2B2B2B] font-extrabold text-4xl">Our Popular Homes</div>
-					<div className="flex gap-2 items-center font-medium">
+					<Link href="/blog" className="flex gap-2 items-center font-medium">
 						<div>Explore All</div>
 						<CgArrowLongRight />
-					</div>
+					</Link>
 				</div>
 				<div className="grid grid-cols-3 gap-6">
 					{data &&
@@ -42,7 +43,9 @@ const PopularListing = async () => {
 												<div>{formatDate(item.createdDate)}</div>
 											</div>
 											<div className="flex justify-between w-full">
-												<button className="bg-black py-2 px-6 text-white rounded-lg font-semibold">Book Now</button>
+												<Link href={`/blog/${item.id}?propertyType=${item.propertyType}`}>
+													<button className="bg-black py-2 px-6 text-white rounded-lg font-semibold">Book Now</button>
+												</Link>
 												<div className="flex items-center font-semibold text-lg">
 													<FaTurkishLiraSign />
 													<div>{item.price}</div>
