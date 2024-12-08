@@ -4,7 +4,13 @@ import React from "react";
 import { HiOutlinePhone } from "react-icons/hi";
 import { MdOutlineEmail } from "react-icons/md";
 
-const UserDescription = ({ user, userEmail, propertyType }: any) => {
+type UserDescriptionProps = {
+	user: string;
+	userEmail: string;
+	propertyType: string;
+};
+
+const UserDescription: React.FC<UserDescriptionProps> = ({ user, userEmail, propertyType }) => {
 	const sendEmail = () => {
 		const email = `mailto:${userEmail}?subject=Your-Subject&body=Your-Message`;
 		window.location.href = email;

@@ -1,55 +1,42 @@
-import SidebarComponent from "@/components/Sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { listing } from "@/lib/types";
 import { formatDate } from "@/util/formatDate";
 import Link from "next/link";
 import React from "react";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaTurkishLiraSign } from "react-icons/fa6";
 
-// interface ListingListProps{
-//     content: listing[],
-//     first: boolean,
-//     last: boolean,
-//     number: number,
-//     size: number,
-//     totalElements: number,
-//     totalPages:number
-// }
 const ListingList = ({ content }: any) => {
-	console.log(content);
-
 	return (
-		<div className="grid grid-cols-4 gap-6 p-8">
+		<div className="grid grid-cols-3 gap-10 py-16 px-52">
 			{content &&
 				content.content.map((item: any) => (
 					<div key={item.id} className=" w-full bg-white pb-5">
-						<div className="flex flex-col gap-3">
-							<img src="/indir.jpeg" alt="Home Img" className="w-full max-h-96" />
-							<div className="px-7 py-1">
-								<div className=" flex flex-col items-start gap-4">
-									<div className="flex gap-3">
-										<FaMapMarkerAlt size={22} />
-										<div className=" font-semibold">
-											{item.address}, {item.city}
-										</div>
-									</div>
-									<div className="flex gap-3 justify-between w-full text-[#818181] font-semibold">
-										<div>{item.user}</div>
-										<div>{formatDate(item.createdDate)}</div>
-									</div>
-									<div className="flex justify-between w-full">
-										<Link href={`/blog/${item.id}?propertyType=${item.propertyType}`}>
-											<button className="bg-black py-2 px-6 text-white rounded-lg font-semibold">Book Now</button>
-										</Link>
-										<div className="flex items-center font-semibold text-lg">
+						<div className="flex flex-col gap-4">
+							<img src="/indir.jpeg" alt="Home Img" className="w-full max-h-80" />
+							<div className=" px-7 flex flex-col gap-1.5">
+								<div className="text-[#2C7272] flex items-center justify-between">
+									<div>
+										<div className="flex items-center gap-1 font-bold text-lg">
 											<FaTurkishLiraSign />
-											<div>{item.price}</div>
+											{item.price}
 										</div>
+										<div className="h-px w-[88px] border border-[#2C7272]"></div>
 									</div>
+									<div className="font-bold text-sm">{formatDate(item.createdDate)}</div>
 								</div>
-								<div className="flex items-center justify-center pt-2">
-									<div className="font-bold">{item.propertyType}</div>
+								<div className="font-light text-xs text-[#A9A9A9] mt-1">
+									{item.address}, {item.city}, {item.district}
+								</div>
+								<div className="text-lg text-[#1B1B1B] font-black">
+									{item.district}, {item.city}
+								</div>
+								<div className="flex items-center justify-between text-[#7F7F7F] font-bold text-sm">
+									<div className="">{item.user}</div>
+									<div>{item.propertyType}</div>
+								</div>
+								<div className="flex items-center justify-between">
+									<div></div>
+									<Link href={`/blog/${item.id}?propertyType=${item.propertyType}`}>
+										<button className="bg-[#005555] text-[#E7E4DE] py-2 px-3 rounded-full w-36">See Details</button>
+									</Link>
 								</div>
 							</div>
 						</div>

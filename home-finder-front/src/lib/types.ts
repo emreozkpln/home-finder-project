@@ -1,5 +1,12 @@
-export interface listing {
-    additionalDetail: string[],
+export type PropertyType = "Apartment" | "DetachedHouse" | "Land";
+type AdditionalDetailByPropertyType<T extends PropertyType> = 
+    T extends "Apartment" ? (ApartmentListing)[] :
+    T extends "DetachedHouse" ? (DetachedHouseListing)[] :
+    T extends "Land" ? (LandListing)[] :
+    never;
+
+export interface Listing<T extends PropertyType> {
+    additionalDetail: AdditionalDetailByPropertyType<T>;
     address: string,
     city: string,
     createdBy: number,
@@ -10,18 +17,8 @@ export interface listing {
     lastModifiedBy: number,
     lastModifiedDate: number[],
     price: number,
-    propertyType: string,
+    propertyType: T,
     user: string
-}
-
-export interface GetAllListingResponse {
-    content: listing[];
-    first: boolean;
-    last: boolean;
-    number: number;
-    size: number;
-    totalElements: number;
-    totalPages: number;
 }
 
 export type ApartmentListing = {

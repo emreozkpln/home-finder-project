@@ -1,17 +1,8 @@
 import React from "react";
-import { MdOutlineMeetingRoom } from "react-icons/md";
-import { FaBath } from "react-icons/fa";
-import { TbMeterSquare } from "react-icons/tb";
 import { formatDate } from "@/util/formatDate";
-import { ApartmentListing, DetachedHouseListing, LandListing } from "@/lib/types";
 import ApartmentListingComponent from "./ApartmentListingComponent";
 import DetachedHouseListingComponent from "./DetachedHouseListingComponent";
 import LandListingComponent from "./LandListingComponent";
-
-type ListingAdditionalDetail = {
-	propertyType: "Apartment" | "DetachedHouse" | "Land";
-	additionalDetail: ApartmentListing | DetachedHouseListing | LandListing;
-};
 
 const BlogInformation = ({ data }: any) => {
 	return (
@@ -27,20 +18,6 @@ const BlogInformation = ({ data }: any) => {
 							{data.address}, {data.city}, {data.district}
 						</div>
 						<div>{formatDate(data.createdDate)}</div>
-					</div>
-				</div>
-				<div className="flex items-center gap-10">
-					<div className="flex items-center gap-2">
-						<MdOutlineMeetingRoom size={22} className="text-[#393939]" />
-						<div className="text-sm font-semibold text-[#7A7A7A]">{data.additionalDetail.numberOfRooms}</div>
-					</div>
-					<div className="flex items-center gap-2">
-						<FaBath size={20} className="text-[#393939]" />
-						<div className="text-sm font-semibold text-[#7A7A7A]">{data.additionalDetail.numberOfBathrooms} bath</div>
-					</div>
-					<div className="flex items-center gap-1">
-						<div className="text-sm font-semibold text-[#7A7A7A]">{data.additionalDetail.landSize}</div>
-						<TbMeterSquare size={22} className="text-[#393939]" />
 					</div>
 				</div>
 				<div className="flex flex-col gap-1">

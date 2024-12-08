@@ -36,6 +36,10 @@ public class AuthenticationService {
     private String activationUrl;
 
     public void register(RegistrationRequest request) throws MessagingException {
+        var existingUser = userRepository.findByEmail(request.email());
+        if(existingUser.isPresent()){
+            throw new OperationNotPermittedException("User already exists");
+        }
         var user = User.builder()
                 .firstname(request.firstname())
                 .lastname(request.lastname())
