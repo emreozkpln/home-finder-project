@@ -1,29 +1,11 @@
-import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
 import { MdAddHomeWork } from "react-icons/md";
-import { decrypt } from "@/lib/session";
 import HeadDropdownMenu from "./HeadDropdownMenu";
-
-type DecryptToken = {
-	fullname: string;
-};
+import { getDecryptedTokenProperty } from "@/util/extractCookie";
 
 const Header = async () => {
-	let token;
-	let username: DecryptToken = {
-		fullname: "",
-	};
-	if ((await cookies()).get("session")?.value != undefined) {
-		token = (await cookies()).get("session")?.value;
-		const payload = await decrypt(token);
-		if (!payload) {
-			throw new Error("Token çözümleme başarısız oldu.");
-		}
-		username = {
-			fullname: payload.fullname as string,
-		};
-	}
+	const username = await getDecryptedTokenProperty("fullname");
 
 	return (
 		<div className="bg-[#E2F4FE] h-[88px]">
@@ -37,12 +19,11 @@ const Header = async () => {
 				<div className="flex gap-5">
 					<Link href="/">Home</Link>
 					<div>About Us</div>
-					<div>Properties</div>
-					<div>Agents</div>
+					<Link href="/add-listing">Free Listing</Link>
 				</div>
-				{token ? (
+				{username ? (
 					<div className="w-12 h-12 flex items-center">
-						<HeadDropdownMenu username={username.fullname} />
+						<HeadDropdownMenu username={username} />
 					</div>
 				) : (
 					<div className="flex gap-3">

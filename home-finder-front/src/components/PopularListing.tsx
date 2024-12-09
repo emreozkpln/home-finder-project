@@ -6,6 +6,7 @@ import { FaTurkishLiraSign } from "react-icons/fa6";
 import getThreeListing from "@/services/listingService";
 import { formatDate } from "@/util/formatDate";
 import Link from "next/link";
+import { Listing } from "@/lib/types";
 
 const PopularListing = async () => {
 	const data = await getThreeListing();
@@ -26,7 +27,7 @@ const PopularListing = async () => {
 				</div>
 				<div className="grid grid-cols-3 gap-6">
 					{data &&
-						data.map((item: any) => (
+						data.map((item: Listing) => (
 							<div key={item.id} className=" w-full bg-white pb-5">
 								<div className="flex flex-col gap-3">
 									<img src="/indir.jpeg" alt="Home Img" className="w-full max-h-96" />

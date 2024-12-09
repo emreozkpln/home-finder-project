@@ -3,12 +3,10 @@ package dev.buddly.home_finder.controller;
 import dev.buddly.home_finder.dto.request.ApartmentRequest;
 import dev.buddly.home_finder.dto.request.DetachedHouseRequest;
 import dev.buddly.home_finder.dto.request.LandRequest;
-import dev.buddly.home_finder.dto.request.ListingRequest;
 import dev.buddly.home_finder.dto.response.ListingResponse;
 import dev.buddly.home_finder.dto.response.PageResponse;
 import dev.buddly.home_finder.elasticsearch.ListingDocument;
 import dev.buddly.home_finder.elasticsearch.ListingDocumentService;
-import dev.buddly.home_finder.elasticsearch.MultipleSearchRequest;
 import dev.buddly.home_finder.handler.ResponseHandler;
 import dev.buddly.home_finder.service.ListingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -74,7 +72,7 @@ public class ListingController {
     @GetMapping("/user")
     public ResponseEntity<PageResponse<ListingResponse>> findListingByUser(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam(name = "size", defaultValue = "3", required = false) int size,
             Authentication connectedUser
     ){
         return ResponseEntity.ok(service.findListingByUser(page,size,connectedUser));

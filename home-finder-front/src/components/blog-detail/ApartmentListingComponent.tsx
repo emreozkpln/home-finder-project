@@ -1,7 +1,10 @@
 import { ApartmentListing } from "@/lib/types";
 import React from "react";
 
-const ApartmentListingComponent = ({ data }: any) => {
+type ApartmentListingComponentProps = {
+	data: ApartmentListing;
+};
+const ApartmentListingComponent: React.FC<ApartmentListingComponentProps> = ({ data }) => {
 	return (
 		<>
 			<li>Floor Number: {data.floorNumber}</li>

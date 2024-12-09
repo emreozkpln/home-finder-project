@@ -1,13 +1,18 @@
+import { Listing, ListingWithPagination } from "@/lib/types";
 import { formatDate } from "@/util/formatDate";
 import Link from "next/link";
 import React from "react";
 import { FaTurkishLiraSign } from "react-icons/fa6";
 
-const ListingList = ({ content }: any) => {
+type ListingListProps = {
+	content: ListingWithPagination;
+};
+
+const ListingList: React.FC<ListingListProps> = ({ content }) => {
 	return (
 		<div className="grid grid-cols-3 gap-10 py-16 px-52">
 			{content &&
-				content.content.map((item: any) => (
+				content.content.map((item: Listing) => (
 					<div key={item.id} className=" w-full bg-white pb-5">
 						<div className="flex flex-col gap-4">
 							<img src="/indir.jpeg" alt="Home Img" className="w-full max-h-80" />

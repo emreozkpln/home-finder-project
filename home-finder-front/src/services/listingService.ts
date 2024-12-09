@@ -1,19 +1,20 @@
-import { GetAllListingResponse, listing } from "@/lib/types"
+import { Listing, ListingWithDetail, ListingWithPagination } from "@/lib/types"
 
 export default async function getThreeListing(){
     const response = await fetch("http://localhost:8088/api/v1/listing/three-listing")
-    return await response.json()
+    const data: Listing = await response.json()
+    return data
 }
 
 export async function getAllPost(page:number,perPage:number){
     const res = await fetch(`http://localhost:8088/api/v1/listing?page=${page}&size=${perPage}`)
-    const data: any = await res.json()
+    const data: ListingWithPagination = await res.json()
     return data
 }
 
 export async function getPostById(id:string){
     const res = await fetch(`http://localhost:8088/api/v1/listing/id/${id}`)
-    const data = await res.json()
+    const data: ListingWithDetail = await res.json()
     return data
 }
 
@@ -34,12 +35,12 @@ export async function getPostByLocationPropertyTypeBudget(fieldValues: any) {
         },
     });
 
-    const data: any = await res.json();
+    const data: Listing = await res.json();
     return data;
 }
 
 export async function getThreePostByPropertyType(propertyType:any){
     const res = await fetch(`http://localhost:8088/api/v1/listing/three-listing/${propertyType}`)
-    const data = await res.json()
+    const data: Listing = await res.json()
     return data
 }

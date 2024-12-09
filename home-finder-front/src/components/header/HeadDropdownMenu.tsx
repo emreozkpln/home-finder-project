@@ -3,8 +3,12 @@ import React from "react";
 import { logout } from "@/app/login/actions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { FaRegUserCircle } from "react-icons/fa";
+import Link from "next/link";
 
-const HeadDropdownMenu = ({ username }: any) => {
+type HeadDropdownMenuProps = {
+	username: string;
+};
+const HeadDropdownMenu: React.FC<HeadDropdownMenuProps> = ({ username }) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
@@ -13,7 +17,9 @@ const HeadDropdownMenu = ({ username }: any) => {
 			<DropdownMenuContent>
 				<DropdownMenuLabel>{username}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>View Profile</DropdownMenuItem>
+				<Link href="/profile?page=0">
+					<DropdownMenuItem>View Profile</DropdownMenuItem>
+				</Link>
 				<DropdownMenuItem
 					onClick={() => {
 						logout();

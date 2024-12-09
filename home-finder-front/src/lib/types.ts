@@ -1,26 +1,3 @@
-export type PropertyType = "Apartment" | "DetachedHouse" | "Land";
-type AdditionalDetailByPropertyType<T extends PropertyType> = 
-    T extends "Apartment" ? (ApartmentListing)[] :
-    T extends "DetachedHouse" ? (DetachedHouseListing)[] :
-    T extends "Land" ? (LandListing)[] :
-    never;
-
-export interface Listing<T extends PropertyType> {
-    additionalDetail: AdditionalDetailByPropertyType<T>;
-    address: string,
-    city: string,
-    createdBy: number,
-    createdDate: number[],
-    description: string,
-    district: string,
-    id: number,
-    lastModifiedBy: number,
-    lastModifiedDate: number[],
-    price: number,
-    propertyType: T,
-    user: string
-}
-
 export type ApartmentListing = {
     floorNumber: number,
     hasBalcony: boolean,
@@ -45,3 +22,40 @@ export type LandListing = {
     zoningStatus: string,
 }
 
+export type Listing = {
+    id: number
+    price: number;
+	address: string;
+	city: string;
+	district: string;
+	createdDate: number[];
+	description: string;
+	propertyType: string;
+    user: string
+    userEmail: string
+	additionalDetail: {}
+}
+
+export type ListingWithDetail = {
+    id: number
+    price: number;
+	address: string;
+	city: string;
+	district: string;
+	createdDate: number[];
+	description: string;
+	propertyType: string;
+    user: string
+    userEmail: string
+	additionalDetail: ApartmentListing | DetachedHouseListing | LandListing;
+}
+
+export type ListingWithPagination = {
+    content: Listing[];
+	first: boolean;
+	last: boolean;
+	number: number;
+	size: number;
+	totalElements: number;
+	totalPages: number;
+}

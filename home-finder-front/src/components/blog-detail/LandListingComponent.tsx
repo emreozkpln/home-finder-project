@@ -1,6 +1,10 @@
+import { LandListing } from "@/lib/types";
 import React from "react";
 
-const LandListingComponent = ({ data }: any) => {
+type LandListingComponentProps = {
+	data: LandListing;
+};
+const LandListingComponent: React.FC<LandListingComponentProps> = ({ data }) => {
 	return (
 		<>
 			<li>Deed Status: {data.deedStatus}</li>

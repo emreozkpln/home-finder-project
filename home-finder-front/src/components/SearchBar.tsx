@@ -11,7 +11,7 @@ const SearchBar = () => {
 		propertyType: "Apartment",
 		price: "",
 	});
-	const handleInputChange = (e: any) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
 		setFieldValues((prevValues) => ({
 			...prevValues,
@@ -19,7 +19,7 @@ const SearchBar = () => {
 		}));
 	};
 
-	const handleSubmit = async (e: any) => {
+	const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const searchParams: Record<string, any> = {};
 		if (fieldValues.city) searchParams.city = fieldValues.city;

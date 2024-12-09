@@ -2,6 +2,7 @@ import BlogInformation from "@/components/blog-detail/BlogInformation";
 import ImageForBlogDetail from "@/components/blog-detail/ImageForBlogDetail";
 import RecommendedThreeListing from "@/components/blog-detail/RecommendedThreeListing";
 import UserDescription from "@/components/blog-detail/UserDescription";
+import { Listing, ListingWithDetail } from "@/lib/types";
 import { getPostById, getThreePostByPropertyType } from "@/services/listingService";
 import React from "react";
 
@@ -15,10 +16,10 @@ interface BlogDetailPage {
 const BlogDetailPage = async ({ params, searchParams }: BlogDetailPage) => {
 	const currentSearchParams = await searchParams;
 	const currentParams = await params;
-	const [data, threePost] = await Promise.all([getPostById(currentParams?.id), getThreePostByPropertyType(currentSearchParams?.propertyType)]);
+	const [data, threePost]: [ListingWithDetail, Listing[]] = await Promise.all([getPostById(currentParams?.id), getThreePostByPropertyType(currentSearchParams?.propertyType)]);
 
 	return (
-		<div className="bg-[#F7F7FB] h-full min-h-screen">
+		<div className="bg-[#F7F7FB] min-h-screen">
 			<div className="grid grid-cols-[55%_45%] gap-8 p-8 px-10">
 				<div className="flex flex-col gap-5">
 					<ImageForBlogDetail />

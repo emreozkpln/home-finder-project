@@ -1,6 +1,11 @@
+import { DetachedHouseListing } from "@/lib/types";
 import React from "react";
 
-const DetachedHouseListingComponent = ({ data }: any) => {
+type DetachedHouseListingComponentProps = {
+	data: DetachedHouseListing;
+};
+
+const DetachedHouseListingComponent: React.FC<DetachedHouseListingComponentProps> = ({ data }) => {
 	return (
 		<>
 			<li>Garage: {data.hasGarage ? "Yes" : "No"}</li>

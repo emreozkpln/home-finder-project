@@ -3,8 +3,13 @@ import { formatDate } from "@/util/formatDate";
 import ApartmentListingComponent from "./ApartmentListingComponent";
 import DetachedHouseListingComponent from "./DetachedHouseListingComponent";
 import LandListingComponent from "./LandListingComponent";
+import { ApartmentListing, DetachedHouseListing, LandListing, ListingWithDetail } from "@/lib/types";
 
-const BlogInformation = ({ data }: any) => {
+type BlogInformationProps = {
+	data: ListingWithDetail;
+};
+
+const BlogInformation: React.FC<BlogInformationProps> = ({ data }) => {
 	return (
 		<div>
 			<div className="flex flex-col gap-4">
@@ -29,17 +34,17 @@ const BlogInformation = ({ data }: any) => {
 					<div className="grid grid-cols-2 gap-1 list-disc px-1 text-[#999999] font-bold text-sm">
 						{data?.propertyType === "Apartment" && (
 							<>
-								<ApartmentListingComponent data={data.additionalDetail} />
+								<ApartmentListingComponent data={data.additionalDetail as ApartmentListing} />
 							</>
 						)}
 						{data?.propertyType === "DetachedHouse" && (
 							<>
-								<DetachedHouseListingComponent data={data.additionalDetail} />
+								<DetachedHouseListingComponent data={data.additionalDetail as DetachedHouseListing} />
 							</>
 						)}
 						{data?.propertyType === "Land" && (
 							<>
-								<LandListingComponent data={data.additionalDetail} />
+								<LandListingComponent data={data.additionalDetail as LandListing} />
 							</>
 						)}
 						{!data.propertyType && <li>No additional details available</li>}
