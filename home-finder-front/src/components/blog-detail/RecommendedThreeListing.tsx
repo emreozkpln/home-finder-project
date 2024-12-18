@@ -19,7 +19,7 @@ const RecommendedThreeListing: React.FC<RecommendedThreeListingProps> = ({ three
 						<div key={item.id} className=" w-full bg-white">
 							<div className="flex flex-col gap-3 text-sm">
 								<img src="/indir.jpeg" alt="Home Img" className="w-full h-full" />
-								<div className="px-7 py-1">
+								<div className="px-3 py-1">
 									<div className=" flex flex-col items-start gap-4">
 										<div className="flex gap-3 items-center">
 											<FaMapMarkerAlt size={22} />
@@ -33,9 +33,9 @@ const RecommendedThreeListing: React.FC<RecommendedThreeListingProps> = ({ three
 										</div>
 										<div className="flex justify-between w-full">
 											<Link href={`/blog/${item.id}?propertyType=${item.propertyType}`}>
-												<button className="bg-black py-2 px-6 text-white rounded-lg font-semibold">Book Now</button>
+												<button className="bg-black py-2 px-3 text-white rounded-lg font-semibold">Book Now</button>
 											</Link>
-											<div className="flex items-center font-semibold">
+											<div className="flex items-center font-semibold text-sm">
 												<FaTurkishLiraSign />
 												<div>{item.price}</div>
 											</div>

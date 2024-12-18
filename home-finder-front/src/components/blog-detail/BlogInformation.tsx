@@ -10,12 +10,14 @@ type BlogInformationProps = {
 };
 
 const BlogInformation: React.FC<BlogInformationProps> = ({ data }) => {
+	console.log(data);
+
 	return (
 		<div>
 			<div className="flex flex-col gap-4">
 				<div className="flex flex-col gap-1">
 					<div className="flex justify-between font-extrabold">
-						<div className="text-xl">Modern Dimond House</div>
+						<div className="text-lg">{data.listingTitle}</div>
 						<div className="text-[#415FFB]">${data.price}</div>
 					</div>
 					<div className="text-sm font-medium text-[#BBC0C5] flex items-center justify-between">
@@ -27,7 +29,9 @@ const BlogInformation: React.FC<BlogInformationProps> = ({ data }) => {
 				</div>
 				<div className="flex flex-col gap-1">
 					<div className="text-[#444444] font-bold">Description</div>
-					<div className="text-[#999999] font-bold text-sm">{data.description}</div>
+					<div className="text-[#999999] font-bold text-sm">
+						{data.description} <span className="font-bold text-black">{data.status.toUpperCase()}</span>
+					</div>
 				</div>
 				<div className="flex flex-col gap-1">
 					<div className="text-[#444444] font-bold">Key Features</div>

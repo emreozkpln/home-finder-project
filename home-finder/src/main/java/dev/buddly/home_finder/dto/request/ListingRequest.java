@@ -16,6 +16,12 @@ public class ListingRequest {
     @NotBlank(message = "Address cannot be blank")
     private String address;
 
+    @Size(max = 50, message = "Listing title cannot exceed 500 characters")
+    private String listingTitle;
+
+    @NotBlank(message = "Status cannot be blank")
+    private String status;
+
     @NotBlank(message = "City cannot be blank")
     private String city;
 

@@ -51,6 +51,19 @@ public class ListingDocumentService {
         return extractAllResponse(response);
     }
 
+    public List<ListingDocument> searchListingByPropertyLocation(String location,String propertyType,Integer price){
+        var query = EsUtil.createBoolQuery(location,propertyType,price);
+        SearchResponse<ListingDocument> response = null;
+        try{
+            response = elasticsearchClient.search(
+                    q -> q.index("listing_index").query((Query) query.get()), ListingDocument.class);
+        } catch (IOException e) {
+            throw new OperationNotPermittedException(e.toString());
+        }
+
+        return extractAllResponse(response);
+    }
+
     public void deleteListingById(Integer listingId){
         elasticsearchRepository.deleteById(listingId);
     }
@@ -82,6 +95,7 @@ public class ListingDocumentService {
                     listing.getLastModifiedBy()
             );
             indexListingDocument(listingDocument);
+            System.out.println("Indexed document with ID: " + listingDocument.getId());
         }
     }
 

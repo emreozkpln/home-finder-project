@@ -15,6 +15,10 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ApartmentRequest extends ListingRequest{
 
+    @NotNull(message = "Area must not be null")
+    @PositiveOrZero(message = "Floor must be 0 or a positive number")
+    private int areaWithMetres;
+
     @NotNull(message = "Floor must not be null")
     @PositiveOrZero(message = "Floor must be 0 or a positive number")
     private int floorNumber;

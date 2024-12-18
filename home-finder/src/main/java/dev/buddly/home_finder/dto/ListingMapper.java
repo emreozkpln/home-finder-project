@@ -2,10 +2,7 @@ package dev.buddly.home_finder.dto;
 
 import dev.buddly.home_finder.dto.request.ListingRequest;
 import dev.buddly.home_finder.dto.response.ListingResponse;
-import dev.buddly.home_finder.entity.Apartment;
-import dev.buddly.home_finder.entity.DetachedHouse;
-import dev.buddly.home_finder.entity.Land;
-import dev.buddly.home_finder.entity.Listing;
+import dev.buddly.home_finder.entity.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +17,8 @@ public class ListingMapper {
         return ListingResponse.builder().
                 id(listing.getId()).
                 address(listing.getAddress()).
+                listingTitle(listing.getListingTitle()).
+                status(listing.getStatus()).
                 city(listing.getCity()).
                 district(listing.getDistrict()).
                 price(listing.getPrice()).
@@ -31,7 +30,13 @@ public class ListingMapper {
                 lastModifiedDate(listing.getLastModifiedDate()).
                 createdBy(listing.getCreatedBy()).
                 lastModifiedBy(listing.getLastModifiedBy()).
-                additionalDetail(new HashMap<>())
+                additionalDetail(new HashMap<>()).
+                imageUrl(
+                        listing.getListingImages()
+                                .stream()
+                                .map(ListingImage::getUrl)
+                                .toList()
+                )
                 .build();
     }
 
@@ -40,6 +45,8 @@ public class ListingMapper {
         ListingResponse.ListingResponseBuilder responseBuilder = ListingResponse.builder()
                 .id(listing.getId())
                 .address(listing.getAddress())
+                .listingTitle(listing.getListingTitle())
+                .status(listing.getStatus())
                 .city(listing.getCity())
                 .district(listing.getDistrict())
                 .price(listing.getPrice())
@@ -50,11 +57,18 @@ public class ListingMapper {
                 .createdDate(listing.getCreatedDate())
                 .lastModifiedDate(listing.getLastModifiedDate())
                 .createdBy(listing.getCreatedBy())
-                .lastModifiedBy(listing.getLastModifiedBy());
+                .lastModifiedBy(listing.getLastModifiedBy())
+                .imageUrl(
+                        listing.getListingImages()
+                                .stream()
+                                .map(ListingImage::getUrl)
+                                .toList()
+                );
 
         Map<String, Object> details = new HashMap<>();
 
         if (listing instanceof Apartment apartment) {
+            details.put("areaWithMetres", apartment.getAreaWithMetres());
             details.put("floorNumber", apartment.getFloorNumber());
             details.put("totalFloors", apartment.getTotalFloors());
             details.put("numberOfRooms", apartment.getNumberOfRooms());

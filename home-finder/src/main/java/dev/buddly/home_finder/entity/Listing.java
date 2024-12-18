@@ -8,6 +8,9 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,13 +26,21 @@ public class Listing {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_gen")
     @SequenceGenerator(name = "seq_gen",sequenceName = "listing_sequence",initialValue = 100,allocationSize = 1)
     private Integer id;
+    private String listingTitle;
     private String address;
     private String city;
     private String district;
     private double price;
+    private String status;
     private String description;
     @Column(insertable = false, updatable = false)
     private String propertyType;
+
+    @OneToMany(mappedBy = "listing",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ListingImage> listingImages;
+
+    @ManyToMany(mappedBy = "favoriteListings")
+    private Set<User> usersWhoFavorited = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")

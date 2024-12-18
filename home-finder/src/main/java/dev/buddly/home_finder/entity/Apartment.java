@@ -15,6 +15,7 @@ import lombok.Setter;
 @DiscriminatorValue("Apartment")
 public class Apartment extends Listing {
 
+    private double areaWithMetres;
     private int floorNumber;
     private int totalFloors;
     private int numberOfRooms;

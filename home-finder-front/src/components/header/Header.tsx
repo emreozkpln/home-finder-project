@@ -2,10 +2,12 @@ import Link from "next/link";
 import React from "react";
 import { MdAddHomeWork } from "react-icons/md";
 import HeadDropdownMenu from "./HeadDropdownMenu";
-import { getDecryptedTokenProperty } from "@/util/extractCookie";
+import { cookies } from "next/headers";
+import { decrypt } from "@/lib/session";
 
 const Header = async () => {
-	const username = await getDecryptedTokenProperty("fullname");
+	const token = (await cookies()).get("session")?.value;
+	const payload = token ? await decrypt(token) : undefined;
 
 	return (
 		<div className="bg-[#E2F4FE] h-[88px]">
@@ -21,9 +23,9 @@ const Header = async () => {
 					<div>About Us</div>
 					<Link href="/add-listing">Free Listing</Link>
 				</div>
-				{username ? (
+				{token && token ? (
 					<div className="w-12 h-12 flex items-center">
-						<HeadDropdownMenu username={username} />
+						<HeadDropdownMenu username={(payload?.fullname as string) || undefined} />
 					</div>
 				) : (
 					<div className="flex gap-3">

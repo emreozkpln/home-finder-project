@@ -29,8 +29,8 @@ const LoginForm = () => {
 					</div>
 					<div className="flex flex-col gap-3">
 						<div className="flex flex-col gap-2">
-							<label htmlFor="email" className="font-bold text-[#676767]">
-								Email
+							<label htmlFor="password" className="font-bold text-[#676767]">
+								Password
 							</label>
 							<input id="password" name="password" type="password" placeholder="Password" className="py-2 px-1 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 placeholder:text-sm placeholder:text-gray-300" />
 						</div>

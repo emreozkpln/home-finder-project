@@ -38,6 +38,8 @@ export type Listing = {
 
 export type ListingWithDetail = {
     id: number
+    listingTitle:string;
+    status:string
     price: number;
 	address: string;
 	city: string;
@@ -58,4 +60,56 @@ export type ListingWithPagination = {
 	size: number;
 	totalElements: number;
 	totalPages: number;
+}
+
+export type Apartment = {
+    token:string,
+    listingTitle:string,
+    status:string,
+    address:string,
+    city:string,
+    district:string,
+    price:number,
+    description:string | "",
+    propertyType:string,
+    areaWithMetres:number,
+    floorNumber:number,
+    totalFloors:number,
+    numberOfRooms:number,
+    numberOfBathrooms:number,
+    hasBalcony:boolean,
+    heatingType:string
+}
+
+export type DetachedHouse = {
+    token:string,
+    listingTitle:string,
+    status:string,
+    address:string,
+    city:string,
+    district:string,
+    price:number,
+    description:string | "",
+    propertyType:string,
+    landSize:number,
+    numberOfRooms:number,
+    numberOfBathrooms:number,
+    hasGarage:boolean,
+    hasGarden:boolean
+}
+
+export type Land = {
+    token:string,
+    listingTitle:string,
+    status:string,
+    address:string,
+    city:string,
+    district:string,
+    price:number,
+    description:string | "",
+    propertyType:string,
+    zoningStatus:string,
+    deedStatus:string,
+    landSize:number,
+    isSuitableForConstruction:boolean
 }

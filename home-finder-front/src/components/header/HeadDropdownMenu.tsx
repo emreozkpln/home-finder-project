@@ -6,7 +6,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import Link from "next/link";
 
 type HeadDropdownMenuProps = {
-	username: string;
+	username: string | undefined;
 };
 const HeadDropdownMenu: React.FC<HeadDropdownMenuProps> = ({ username }) => {
 	return (

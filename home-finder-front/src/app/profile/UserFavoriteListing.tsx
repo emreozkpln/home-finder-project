@@ -8,17 +8,17 @@ import { FaTurkishLiraSign } from "react-icons/fa6";
 import DeleteButton from "./DeleteButton";
 import { cookies } from "next/headers";
 
-type UserListingProps = {
-	data: ListingWithPagination;
+type UserFavoriteListingProps = {
+	favorite: ListingWithPagination;
 	currentPage: number;
 };
-const UserListing: React.FC<UserListingProps> = async ({ data, currentPage }) => {
+const UserFavoriteListing: React.FC<UserFavoriteListingProps> = async ({ favorite, currentPage }) => {
 	const token = await (await cookies()).get("session")?.value;
 	return (
 		<div className="bg-white p-5 rounded-xl w-full h-full shadow-lg flex flex-col gap-3 items-center justify-center">
 			<div className="grid grid-cols-3 gap-3">
-				{data &&
-					data.content.map((item: Listing) => (
+				{favorite &&
+					favorite.content.map((item: Listing) => (
 						<div key={item.id} className=" w-full bg-white h-full">
 							<div className="flex flex-col gap-3 text-sm">
 								<img src="/indir.jpeg" alt="Home Img" className="w-full h-full" />
@@ -43,7 +43,6 @@ const UserListing: React.FC<UserListingProps> = async ({ data, currentPage }) =>
 												<div>{item.price}</div>
 											</div>
 										</div>
-										<DeleteButton id={item.id} token={token} />
 									</div>
 								</div>
 							</div>
@@ -51,10 +50,10 @@ const UserListing: React.FC<UserListingProps> = async ({ data, currentPage }) =>
 					))}
 			</div>
 			<div className="flex items-center justify-center">
-				<PaginationWithLinks page={currentPage} pageSize={3} totalCount={data.totalElements} />
+				<PaginationWithLinks page={currentPage} pageSize={3} totalCount={favorite.totalElements} />
 			</div>
 		</div>
 	);
 };
 
-export default UserListing;
+export default UserFavoriteListing;

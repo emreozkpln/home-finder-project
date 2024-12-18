@@ -10,7 +10,7 @@ type ListingListProps = {
 
 const ListingList: React.FC<ListingListProps> = ({ content }) => {
 	return (
-		<div className="grid grid-cols-3 gap-10 py-16 px-52">
+		<div className="grid grid-cols-3 gap-10">
 			{content &&
 				content.content.map((item: Listing) => (
 					<div key={item.id} className=" w-full bg-white pb-5">

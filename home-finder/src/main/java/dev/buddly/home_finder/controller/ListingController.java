@@ -61,12 +61,29 @@ public class ListingController {
         return ResponseEntity.ok(documentService.searchListingsByFieldsAndValues(request));
     }
 
+    @PostMapping("/search-parametres")
+    public ResponseEntity<List<ListingDocument>> searchListings(
+            @RequestParam String location,@RequestParam String propertyType,@RequestParam Integer price
+    ){
+        return ResponseEntity.ok(documentService.searchListingByPropertyLocation(location,propertyType,price));
+    }
+
     @GetMapping
     public ResponseEntity<PageResponse<ListingResponse>> findAllListing(
             @RequestParam(name = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam(name = "sortDirection") String sortDirection
     ){
-        return ResponseEntity.ok(service.findAllListing(page,size));
+        return ResponseEntity.ok(service.findAllListing(page,size,sortDirection));
+    }
+
+    @GetMapping("/des/price")
+    public ResponseEntity<PageResponse<ListingResponse>> findAllListingDescendingPrice(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            @RequestParam(name = "sortDirection") String sortDirection
+    ){
+        return ResponseEntity.ok(service.findAllListingDescendingPrice(page,size,sortDirection));
     }
 
     @GetMapping("/user")
@@ -86,30 +103,30 @@ public class ListingController {
     }
 
     @PostMapping("/add/apartment")
-    public ResponseEntity<Void> addApartmentListing(
+    public ResponseEntity<Object> addApartmentListing(
             @RequestBody @Valid ApartmentRequest request,
             Authentication connectedUser
     ){
         service.addApartmentListing(request,connectedUser);
-        return ResponseEntity.accepted().build();
+        return ResponseHandler.handle("Listing added successfully",HttpStatus.CREATED,null);
     }
 
     @PostMapping("/add/detached-house")
-    public ResponseEntity<Void> addDetachedHouseListing(
+    public ResponseEntity<Object> addDetachedHouseListing(
             @RequestBody @Valid DetachedHouseRequest request,
             Authentication connectedUser
     ){
         service.addDetachedHouseListing(request,connectedUser);
-        return ResponseEntity.accepted().build();
+        return ResponseHandler.handle("Listing added successfully",HttpStatus.CREATED,null);
     }
 
     @PostMapping("/add/land")
-    public ResponseEntity<Void> addLandListing(
+    public ResponseEntity<Object> addLandListing(
             @RequestBody @Valid LandRequest request,
             Authentication connectedUser
     ){
         service.addLandListing(request,connectedUser);
-        return ResponseEntity.accepted().build();
+        return ResponseHandler.handle("Listing added successfully",HttpStatus.CREATED,null);
     }
 
     @PatchMapping("/update/apartment/{id}")

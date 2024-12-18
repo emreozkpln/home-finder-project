@@ -10,11 +10,13 @@ import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Document(indexName = "listing_index")
+@Setting(settingPath = "static/es-settings.json")
 @Getter
 @Setter
 @AllArgsConstructor

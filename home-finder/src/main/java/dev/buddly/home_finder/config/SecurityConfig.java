@@ -52,7 +52,9 @@ public class SecurityConfig {
                                         "/listing/three-listing/{propertyType}",
                                 "/listing/index/**",
                                 "/listing/search",
-                                "/listing/compare"
+                                "/listing/compare",
+                                "/listing/des/price",
+                                "/image/upload/**"
                         ).permitAll()
                                 .anyRequest()
                                 .authenticated()

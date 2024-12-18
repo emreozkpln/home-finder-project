@@ -3,6 +3,7 @@ package dev.buddly.home_finder.dto.response;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -14,6 +15,8 @@ public class ListingResponse {
 
     private Integer id;
     private String address;
+    private String listingTitle;
+    private String status;
     private String city;
     private String district;
     private double price;
@@ -26,4 +29,5 @@ public class ListingResponse {
     private Integer createdBy;
     private Integer lastModifiedBy;
     private Map<String,Object> additionalDetail;
+    private List<String> imageUrl;
 }

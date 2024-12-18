@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS DetachedHouse;
 DROP TABLE IF EXISTS Land;
 DROP TABLE IF EXISTS Apartment;
+DROP TABLE IF EXISTS ListingImage;
 DROP TABLE IF EXISTS Listing;
 DROP TABLE IF EXISTS _user;
 
@@ -18,13 +19,23 @@ CREATE TABLE IF NOT EXISTS _user (
     lastModifiedDate TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS ListingImage (
+    id SERIAL PRIMARY KEY,
+    url VARCHAR(255),
+    keyName VARCHAR(255),
+    listing_id INT NOT NULL,
+    FOREIGN KEY (listing_id) REFERENCES Listing(id) ON DELETE CASCADE
+);
+
 
 CREATE TABLE IF NOT EXISTS Listing (
     id SERIAL PRIMARY KEY,
+    listingTitle VARCHAR(255),
     address VARCHAR(255),
     city VARCHAR(255),
     district VARCHAR(255),
     price DOUBLE PRECISION,
+    status VARCHAR(255),
     description TEXT,
     propertyType VARCHAR(255),
     user_id INT,
@@ -59,6 +70,7 @@ CREATE TABLE IF NOT EXISTS Land (
 -- Apartment tablosu oluşturuluyor
 CREATE TABLE IF NOT EXISTS Apartment (
     id INT PRIMARY KEY,
+    areaWithMetres DOUBLE PRECISION,
     floorNumber INT,
     totalFloors INT,
     numberOfRooms INT,
@@ -77,4 +89,12 @@ CREATE TABLE IF NOT EXISTS Token (
     validatedAt TIMESTAMP,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES _user(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_favorites (
+    user_id INT NOT NULL,
+    listing_id INT NOT NULL,
+    PRIMARY KEY (user_id, listing_id),
+    FOREIGN KEY (user_id) REFERENCES _user(id),
+    FOREIGN KEY (listing_id) REFERENCES Listing(id)
 );

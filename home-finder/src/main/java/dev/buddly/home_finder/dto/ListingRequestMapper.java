@@ -17,6 +17,8 @@ public class ListingRequestMapper {
 
     private <T extends Listing> T mapCommonFields(T listing, ListingRequest request) {
         listing.setAddress(request.getAddress());
+        listing.setListingTitle(request.getListingTitle());
+        listing.setStatus(request.getStatus());
         listing.setCity(request.getCity());
         listing.setDistrict(request.getDistrict());
         listing.setPrice(request.getPrice());
@@ -28,6 +30,7 @@ public class ListingRequestMapper {
 
     public Apartment toApartment(ApartmentRequest request) {
         Apartment apartment = mapCommonFields(new Apartment(), request);
+        apartment.setAreaWithMetres(request.getAreaWithMetres());
         apartment.setFloorNumber(request.getFloorNumber());
         apartment.setTotalFloors(request.getTotalFloors());
         apartment.setNumberOfRooms(request.getNumberOfRooms());

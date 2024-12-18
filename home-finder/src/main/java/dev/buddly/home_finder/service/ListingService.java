@@ -54,8 +54,33 @@ public class ListingService {
                 .toList();
     }
 
-    public PageResponse<ListingResponse> findAllListing(int page, int size) {
-        Pageable pageable = PageRequest.of(page,size, Sort.by("createdDate").descending());
+    public PageResponse<ListingResponse> findAllListing(int page, int size, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("asc")
+                ? Sort.by("createdDate").ascending()
+                : Sort.by("createdDate").descending();
+        Pageable pageable = PageRequest.of(page,size, sort);
+        Page<Listing> listings = listingRepository.findAll(pageable);
+        List<ListingResponse> listingResponse = listings
+                .stream()
+                .map(listingMapper::toResponse)
+                .collect(Collectors.toList());
+
+        return new PageResponse<>(
+                listingResponse,
+                listings.getNumber(),
+                listings.getSize(),
+                listings.getTotalElements(),
+                listings.getTotalPages(),
+                listings.isFirst(),
+                listings.isLast()
+        );
+    }
+
+    public PageResponse<ListingResponse> findAllListingDescendingPrice(int page, int size, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("asc")
+                ? Sort.by("price").ascending()
+                : Sort.by("price").descending();
+        Pageable pageable = PageRequest.of(page,size, sort);
         Page<Listing> listings = listingRepository.findAll(pageable);
         List<ListingResponse> listingResponse = listings
                 .stream()
