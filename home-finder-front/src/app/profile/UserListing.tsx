@@ -7,6 +7,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaTurkishLiraSign } from "react-icons/fa6";
 import DeleteButton from "./DeleteButton";
 import { cookies } from "next/headers";
+import EditButton from "./EditButton";
 
 type UserListingProps = {
 	data: ListingWithPagination;
@@ -43,7 +44,10 @@ const UserListing: React.FC<UserListingProps> = async ({ data, currentPage }) =>
 												<div>{item.price}</div>
 											</div>
 										</div>
-										<DeleteButton id={item.id} token={token} />
+										<div className="flex justify-around items-center gap-4">
+											<DeleteButton id={item.id} token={token} />
+											<EditButton listingId={item.id} />
+										</div>
 									</div>
 								</div>
 							</div>

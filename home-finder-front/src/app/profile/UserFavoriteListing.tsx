@@ -1,19 +1,19 @@
+import FavoriteButton from "@/components/FavoriteButton";
 import { PaginationWithLinks } from "@/components/ui/pagination-with-links";
 import { Listing, ListingWithPagination } from "@/lib/types";
 import { formatDate } from "@/util/formatDate";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaTurkishLiraSign } from "react-icons/fa6";
-import DeleteButton from "./DeleteButton";
-import { cookies } from "next/headers";
 
 type UserFavoriteListingProps = {
 	favorite: ListingWithPagination;
 	currentPage: number;
 };
 const UserFavoriteListing: React.FC<UserFavoriteListingProps> = async ({ favorite, currentPage }) => {
-	const token = await (await cookies()).get("session")?.value;
+	const token = (await cookies()).get("session")?.value;
 	return (
 		<div className="bg-white p-5 rounded-xl w-full h-full shadow-lg flex flex-col gap-3 items-center justify-center">
 			<div className="grid grid-cols-3 gap-3">
@@ -21,7 +21,10 @@ const UserFavoriteListing: React.FC<UserFavoriteListingProps> = async ({ favorit
 					favorite.content.map((item: Listing) => (
 						<div key={item.id} className=" w-full bg-white h-full">
 							<div className="flex flex-col gap-3 text-sm">
-								<img src="/indir.jpeg" alt="Home Img" className="w-full h-full" />
+								<div className="relative">
+									<img src="/indir.jpeg" alt="Home Img" className="w-full h-full " />
+									<FavoriteButton initialFavoriteState={true} listingId={item.id} token={token} />
+								</div>
 								<div className="px-2 py-1">
 									<div className=" flex flex-col items-center gap-4">
 										<div className="flex gap-3 items-center">

@@ -22,7 +22,7 @@ const BlogDetailPage = async ({ params, searchParams }: BlogDetailPage) => {
 		<div className="bg-[#F7F7FB] min-h-screen">
 			<div className="grid grid-cols-[55%_45%] gap-8 p-8 px-10">
 				<div className="flex flex-col gap-5">
-					<ImageForBlogDetail />
+					<ImageForBlogDetail images={data.imageUrl} />
 					<UserDescription user={data.user} userEmail={data.userEmail} propertyType={data.propertyType} />
 				</div>
 				<div className="flex flex-col gap-6 bg-white rounded-xl p-5 shadow-xl">

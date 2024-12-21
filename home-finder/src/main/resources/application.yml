@@ -14,7 +14,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/home-finder
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:

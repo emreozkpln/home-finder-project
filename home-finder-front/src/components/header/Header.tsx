@@ -20,7 +20,7 @@ const Header = async () => {
 				</div>
 				<div className="flex gap-5">
 					<Link href="/">Home</Link>
-					<div>About Us</div>
+					<Link href="/blog">Listings</Link>
 					<Link href="/add-listing">Free Listing</Link>
 				</div>
 				{token && token ? (

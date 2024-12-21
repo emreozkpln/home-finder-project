@@ -34,6 +34,7 @@ export type Listing = {
     user: string
     userEmail: string
 	additionalDetail: {}
+    imageUrl:string[]
 }
 
 export type ListingWithDetail = {
@@ -50,6 +51,7 @@ export type ListingWithDetail = {
     user: string
     userEmail: string
 	additionalDetail: ApartmentListing | DetachedHouseListing | LandListing;
+    imageUrl:string[]
 }
 
 export type ListingWithPagination = {

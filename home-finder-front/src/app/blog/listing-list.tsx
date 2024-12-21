@@ -1,5 +1,7 @@
+import FavoriteButton from "@/components/FavoriteButton";
 import { Listing, ListingWithPagination } from "@/lib/types";
 import { formatDate } from "@/util/formatDate";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
 import { FaTurkishLiraSign } from "react-icons/fa6";
@@ -8,14 +10,18 @@ type ListingListProps = {
 	content: ListingWithPagination;
 };
 
-const ListingList: React.FC<ListingListProps> = ({ content }) => {
+const ListingList: React.FC<ListingListProps> = async ({ content }) => {
+	const token = (await cookies()).get("session")?.value;
 	return (
 		<div className="grid grid-cols-3 gap-10">
 			{content &&
 				content.content.map((item: Listing) => (
 					<div key={item.id} className=" w-full bg-white pb-5">
 						<div className="flex flex-col gap-4">
-							<img src="/indir.jpeg" alt="Home Img" className="w-full max-h-80" />
+							<div className="relative">
+								<img src="/indir.jpeg" alt="Home Img" className="w-full h-full " />
+								<FavoriteButton initialFavoriteState={false} listingId={item.id} token={token} />
+							</div>
 							<div className=" px-7 flex flex-col gap-1.5">
 								<div className="text-[#2C7272] flex items-center justify-between">
 									<div>
