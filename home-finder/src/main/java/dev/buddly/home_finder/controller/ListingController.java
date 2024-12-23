@@ -62,10 +62,14 @@ public class ListingController {
     }
 
     @PostMapping("/search-parametres")
-    public ResponseEntity<List<ListingDocument>> searchListings(
-            @RequestParam String location,@RequestParam String propertyType,@RequestParam Integer price
+    public ResponseEntity<PageResponse<ListingDocument>> searchListings(
+            @RequestParam String location,
+            @RequestParam String propertyType,
+            @RequestParam Double price,
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
     ){
-        return ResponseEntity.ok(documentService.searchListingByPropertyLocation(location,propertyType,price));
+        return ResponseEntity.ok(documentService.searchListingByPropertyLocation(location,propertyType,price,page,size));
     }
 
     @GetMapping

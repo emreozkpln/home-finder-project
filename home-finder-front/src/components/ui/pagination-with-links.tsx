@@ -52,7 +52,7 @@ export function PaginationWithLinks({ pageSizeSelectOptions, pageSize, totalCoun
 			const key = pageSizeSelectOptions?.pageSizeSearchParam || "pageSize";
 			const newSearchParams = new URLSearchParams(searchParams || undefined);
 			newSearchParams.set(key, String(newPageSize));
-			newSearchParams.delete(pageSearchParam || "page"); // Clear the page number when changing page size
+			newSearchParams.delete(pageSearchParam || "page");
 			router.push(`${pathname}?${newSearchParams.toString()}`);
 		},
 		[searchParams, pathname]

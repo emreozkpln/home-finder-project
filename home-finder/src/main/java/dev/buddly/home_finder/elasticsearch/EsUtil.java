@@ -28,7 +28,7 @@ public class EsUtil {
         return () -> Query.of(q -> q.bool(boolQueryBuilder.build()));
     }
 
-    public static Supplier<Query> createBoolQuery(String location,String propertyType,Integer price){
+    public static Supplier<Query> createBoolQuery(String location,String propertyType,Double price){
         BoolQuery.Builder boolQueryBuilder = new BoolQuery.Builder();
 
         if (propertyType != null) {
@@ -39,19 +39,27 @@ public class EsUtil {
         }
 
         if (location != null) {
-            boolQueryBuilder.must(Query.of(q -> q
-                    .match(p -> p
+            boolQueryBuilder.should(Query.of(q -> q
+                    .match(m -> m
                             .field("city")
                             .query(location)
-                            .analyzer("custom_index_analyzer"))));
+                            .analyzer("edge_ngram_analyzer"))));
+
+            boolQueryBuilder.should(Query.of(q -> q
+                    .fuzzy(f -> f
+                            .field("city")
+                            .value(location)
+                            .fuzziness("AUTO"))));
         }
 
         if (price != null) {
             boolQueryBuilder.must(Query.of(q -> q
                     .range(r -> r
                             .field("price")
+                            .gte(JsonData.of(0))
                             .lte(JsonData.of(price)))));
         }
-        return () ->Query.of(q -> q.bool(boolQueryBuilder.build()));
+        System.out.println("boolQueryBuilder" + boolQueryBuilder);
+        return () -> Query.of(q -> q.bool(boolQueryBuilder.build()));
     }
 }

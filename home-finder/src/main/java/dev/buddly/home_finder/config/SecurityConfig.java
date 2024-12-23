@@ -54,7 +54,8 @@ public class SecurityConfig {
                                 "/listing/search",
                                 "/listing/compare",
                                 "/listing/des/price",
-                                "/image/upload/**"
+                                "/image/upload/**",
+                                "/listing/search-parametres"
                         ).permitAll()
                                 .anyRequest()
                                 .authenticated()

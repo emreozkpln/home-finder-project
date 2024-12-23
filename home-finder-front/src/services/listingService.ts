@@ -32,7 +32,8 @@ async function indexData(){
 export async function getPostByLocationPropertyTypeBudget(fieldValues: any) {
     await indexData()
     const queryParams = new URLSearchParams(fieldValues).toString();
-    const url = `http://localhost:8088/api/v1/listing/search?${queryParams}`;
+    
+    const url = `http://localhost:8088/api/v1/listing/search-parametres?${queryParams}`;
 
     const res = await fetch(url, {
         method: 'POST',
@@ -41,7 +42,7 @@ export async function getPostByLocationPropertyTypeBudget(fieldValues: any) {
         },
     });
 
-    const data: Listing = await res.json();
+    const data = await res.json();
     return data;
 }
 

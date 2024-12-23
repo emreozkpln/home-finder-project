@@ -1,6 +1,6 @@
 import FavoriteButton from "@/components/FavoriteButton";
 import { Listing, ListingWithPagination } from "@/lib/types";
-import { formatDate } from "@/util/formatDate";
+import { formatDate, formatDateWithString } from "@/util/formatDate";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
@@ -31,7 +31,7 @@ const ListingList: React.FC<ListingListProps> = async ({ content }) => {
 										</div>
 										<div className="h-px w-[88px] border border-[#2C7272]"></div>
 									</div>
-									<div className="font-bold text-sm">{formatDate(item.createdDate)}</div>
+									<div className="font-bold text-sm">{Array.isArray(item.createdDate) ? formatDate(item.createdDate) : formatDateWithString(item.createdDate)}</div>
 								</div>
 								<div className="font-light text-xs text-[#A9A9A9] mt-1">
 									{item.address}, {item.city}, {item.district}

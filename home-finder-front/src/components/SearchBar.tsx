@@ -4,10 +4,11 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import { RiHome2Fill } from "react-icons/ri";
 import { FaTurkishLiraSign } from "react-icons/fa6";
 import { getPostByLocationPropertyTypeBudget } from "@/services/listingService";
+import { redirect } from "next/navigation";
 
 const SearchBar = () => {
 	const [fieldValues, setFieldValues] = useState({
-		city: "",
+		location: "",
 		propertyType: "Apartment",
 		price: "",
 	});
@@ -21,12 +22,13 @@ const SearchBar = () => {
 
 	const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const searchParams: Record<string, any> = {};
-		if (fieldValues.city) searchParams.city = fieldValues.city;
-		if (fieldValues.propertyType) searchParams.propertyType = fieldValues.propertyType;
-		if (fieldValues.price) searchParams.price = fieldValues.price;
-		const data = await getPostByLocationPropertyTypeBudget(searchParams);
-		console.log(data);
+		const searchParams: Record<string, any> = {
+			price: fieldValues.price || 10000000,
+			location: fieldValues.location || "",
+			propertyType: fieldValues.propertyType || "",
+		};
+		const queryParams = new URLSearchParams(searchParams).toString();
+		redirect(`/blog?${queryParams}`);
 	};
 
 	return (
@@ -35,7 +37,7 @@ const SearchBar = () => {
 				<div className="font-semibold">Search for available properties</div>
 				<form onSubmit={handleSubmit} className="flex gap-5">
 					<div className="flex items-center bg-white border border-gray-300 rounded-md p-2 w-72">
-						<input name="city" className="border-none outline-none flex-grow p-1 placeholder:text-black" type="text" placeholder="Location" value={fieldValues.city} onChange={handleInputChange} />
+						<input name="location" className="border-none outline-none flex-grow p-1 placeholder:text-black" type="text" placeholder="Location" value={fieldValues.location} onChange={handleInputChange} />
 						<FaMapMarkerAlt className="text-gray-600 text-lg" />
 					</div>
 
@@ -43,7 +45,7 @@ const SearchBar = () => {
 						<select name="propertyType" className="border-none outline-none flex-grow p-1" value={fieldValues.propertyType} onChange={handleInputChange}>
 							<option value="Apartment">Apartment</option>
 							<option value="DetachedHouse">House</option>
-							<option value="Land">Villa</option>
+							<option value="Land">Land</option>
 						</select>
 						<RiHome2Fill className="text-gray-600 text-lg" />
 					</div>

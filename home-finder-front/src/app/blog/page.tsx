@@ -1,8 +1,9 @@
-import { getAllPostByCreatedDate, getAllPostByPrice } from "@/services/listingService";
+import { getAllPostByCreatedDate, getAllPostByPrice, getPostByLocationPropertyTypeBudget } from "@/services/listingService";
 import React from "react";
 import ListingList from "./listing-list";
 import { PaginationWithLinks } from "@/components/ui/pagination-with-links";
 import SortMenu from "./SortMenu";
+import FilterMenu from "./FilterMenu";
 
 interface BlogProps {
 	searchParams: { [key: string]: string | undefined };
@@ -15,21 +16,25 @@ const Blog = async ({ searchParams }: BlogProps) => {
 	const sortField = currentSearchParams?.sortField;
 	const sortDirection = currentSearchParams?.sortDirection || "desc";
 	let data;
-	switch (sortField) {
-		case "createdDate":
-			data = await getAllPostByCreatedDate(currentPage, postsPerPage, sortDirection);
-			break;
-		case "price":
-			data = await getAllPostByPrice(currentPage, postsPerPage, sortDirection);
-			break;
-		default:
-			data = await getAllPostByCreatedDate(currentPage, postsPerPage, sortDirection);
-			break;
+	if (currentSearchParams?.city || currentSearchParams?.propertyType || currentSearchParams?.price) {
+		data = await getPostByLocationPropertyTypeBudget(currentSearchParams);
+	} else {
+		switch (sortField) {
+			case "createdDate":
+				data = await getAllPostByCreatedDate(currentPage, postsPerPage, sortDirection);
+				break;
+			case "price":
+				data = await getAllPostByPrice(currentPage, postsPerPage, sortDirection);
+				break;
+			default:
+				data = await getAllPostByCreatedDate(currentPage, postsPerPage, sortDirection);
+				break;
+		}
 	}
-
 	return (
 		<div className="py-10 max-w-7xl mx-auto">
-			<div className="flex justify-end pb-5">
+			<div className="flex justify-end pb-5 gap-5">
+				<FilterMenu params={currentSearchParams} />
 				<SortMenu />
 			</div>
 			<ListingList content={data} />

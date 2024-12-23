@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Document(indexName = "listing_index")
-@Setting(settingPath = "static/es-settings.json")
 @Getter
 @Setter
 @AllArgsConstructor

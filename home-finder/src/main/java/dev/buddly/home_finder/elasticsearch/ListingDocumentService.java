@@ -1,10 +1,12 @@
 package dev.buddly.home_finder.elasticsearch;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch.core.IndexRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
+import dev.buddly.home_finder.dto.response.PageResponse;
 import dev.buddly.home_finder.entity.Listing;
 import dev.buddly.home_finder.exception.OperationNotPermittedException;
 import dev.buddly.home_finder.repo.ListingRepository;
@@ -51,17 +53,29 @@ public class ListingDocumentService {
         return extractAllResponse(response);
     }
 
-    public List<ListingDocument> searchListingByPropertyLocation(String location,String propertyType,Integer price){
+    public PageResponse<ListingDocument> searchListingByPropertyLocation(String location,String propertyType,Double price,int page, int size){
         var query = EsUtil.createBoolQuery(location,propertyType,price);
         SearchResponse<ListingDocument> response = null;
         try{
             response = elasticsearchClient.search(
-                    q -> q.index("listing_index").query((Query) query.get()), ListingDocument.class);
+                    q -> q.index("listing_index").query(query.get()).from(page * size).size(size).sort(s -> s.field(f -> f.field("createdDate").order(SortOrder.Desc))), ListingDocument.class);
         } catch (IOException e) {
             throw new OperationNotPermittedException(e.toString());
         }
 
-        return extractAllResponse(response);
+        List<ListingDocument> listingDocuments = extractAllResponse(response);
+        long totalElements = response.hits().total().value();
+        int totalPages = (int) Math.ceil((double) totalElements / size);
+
+        return new PageResponse<>(
+                listingDocuments,
+                page,
+                size,
+                totalElements,
+                totalPages,
+                page == 0,
+                (page + 1) == totalPages
+        );
     }
 
     public void deleteListingById(Integer listingId){
@@ -95,7 +109,7 @@ public class ListingDocumentService {
                     listing.getLastModifiedBy()
             );
             indexListingDocument(listingDocument);
-            System.out.println("Indexed document with ID: " + listingDocument.getId());
+            //System.out.println("Indexed document with ID: " + listingDocument.getId());
         }
     }
 

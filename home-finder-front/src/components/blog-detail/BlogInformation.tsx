@@ -10,8 +10,6 @@ type BlogInformationProps = {
 };
 
 const BlogInformation: React.FC<BlogInformationProps> = ({ data }) => {
-	console.log(data);
-
 	return (
 		<div>
 			<div className="flex flex-col gap-4">
