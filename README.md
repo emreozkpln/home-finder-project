@@ -1,4 +1,4 @@
-# Real Estate Management Application
+# Home Finder
 
 This project is a real estate management application where users can list, update, delete, and add properties to their favorites. Users can also sign up and log in, but they must confirm their account via a verification code sent to them upon registration.
 
